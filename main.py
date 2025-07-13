@@ -1,13 +1,12 @@
-
 from flask import Flask, request, send_file
+from flask_cors import CORS
 from rembg import remove
 from io import BytesIO
 from PIL import Image
-from flask_cors import CORS
 import os
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all domains
+CORS(app)
 
 @app.route('/')
 def home():
@@ -21,10 +20,8 @@ def remove_watermark():
     file = request.files['image']
     input_image = Image.open(file.stream).convert("RGBA")
 
-    # Process using rembg
     output_image = remove(input_image)
 
-    # Prepare in-memory response
     output_io = BytesIO()
     output_image.save(output_io, format='PNG')
     output_io.seek(0)
