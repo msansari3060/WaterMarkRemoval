@@ -21,5 +21,6 @@ def remove_watermark():
 
     return send_file(output_io, mimetype='image/png')
 
-if __name__ == '__main__':
-    app.run()
+@app.route('/')
+def home():
+    return 'Watermark API is running!'
